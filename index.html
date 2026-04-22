@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rin's Collectibles</title>
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --container-bg: #161b22;
+            --text-main: #39ff14; /* Neon terminal green */
+            --text-dim: #8b949e;
+            --accent: #ff007f; /* Neon pink for pop */
+            --border-color: #30363d;
+            --font-family: 'Consolas', 'Courier New', Courier, monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-family);
+            line-height: 1.6;
+            color: var(--text-main);
+            background-color: var(--bg-color);
+            text-shadow: 0 0 5px rgba(57, 255, 20, 0.3);
+        }
+
+        /* Scanline Overlay Effect */
+        body::after {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 2;
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
+        }
+
+        .wrapper {
+            position: relative;
+            z-index: 10;
+        }
+
+        header {
+            background-color: #000;
+            color: var(--text-main);
+            padding: 2rem 0; /* Reduced top padding slightly to make logo prominent */
+            text-align: center;
+            border-bottom: 2px dashed var(--text-main);
+            box-shadow: 0 0 20px rgba(57, 255, 20, 0.1);
+            /* Stacking for logo and text */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Styling for the integrated logo image */
+        .header-logo {
+            max-height: 180px; /* Adjust size as needed */
+            width: auto;
+            margin-bottom: 1.5rem; /* Space between logo and text title */
+            display: block;
+            border-radius: 50%; /* Helps round out the background if needed */
+            /* Added drop-shadow to give the colorful logo a neon glow that fits the theme */
+            filter: drop-shadow(0 0 10px rgba(57, 255, 20, 0.5));
+            /* Animated breathing glow effect */
+            animation: logo-glow 3s infinite alternate;
+        }
+        
+        @keyframes logo-glow {
+            from {
+                filter: drop-shadow(0 0 5px rgba(57, 255, 20, 0.3));
+            }
+            to {
+                filter: drop-shadow(0 0 15px rgba(57, 255, 20, 0.7));
+            }
+        }
+
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            margin-top: 0;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        header h1::before { content: "> "; color: var(--accent); }
+        header h1::after { content: "_"; animation: blink 1s step-end infinite; }
+
+        @keyframes blink { 50% { opacity: 0; } }
+
+        header p {
+            font-size: 1.2rem;
+            color: var(--text-dim);
+            margin-bottom: 1rem;
+            margin-top: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        section {
+            background: var(--container-bg);
+            margin-bottom: 2rem;
+            padding: 2.5rem;
+            border: 1px solid var(--border-color);
+            border-left: 5px solid var(--text-main);
+        }
+
+        h2 {
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            display: inline-block;
+            font-size: 1.8rem;
+            text-transform: uppercase;
+        }
+
+        h2::before { content: "[ "; color: var(--text-dim); }
+        h2::after { content: " ]"; color: var(--text-dim); }
+
+        p { margin-bottom: 1rem; }
+
+        ul {
+            margin-left: 2rem;
+            margin-bottom: 1.5rem;
+            list-style-type: square;
+        }
+
+        li {
+            margin-bottom: 0.8rem;
+        }
+
+        strong { color: #fff; }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            font-size: 1.2rem;
+            background: #000;
+            padding: 1.5rem;
+            border: 1px dashed var(--border-color);
+        }
+
+        .contact-method a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-method a:hover {
+            color: var(--text-main);
+            text-shadow: 0 0 8px var(--text-main);
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: transparent;
+            color: var(--text-main);
+            padding: 12px 24px;
+            text-decoration: none;
+            font-weight: bold;
+            border: 2px solid var(--text-main);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button:hover {
+            background-color: var(--text-main);
+            color: #000;
+            box-shadow: 0 0 15px var(--text-main);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background-color: #000;
+            color: var(--text-dim);
+            margin-top: 2rem;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            header h1 { font-size: 2rem; }
+            .header-logo { max-height: 120px; } /* Scale logo down for small screens */
+            .container { padding: 1rem; }
+            section { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="wrapper">
+        <header>
+            <img src="logo.png" alt="Rin's Collectibles" class="header-logo">
+            <h1>Rin's Collectibles</h1>
+            <p>Bringing Rare Finds Directly to You</p>
+        </header>
+
+        <div class="container">
+            
+            <section id="about">
+                <h2>Welcome</h2>
+                <p>At Rin's Collectibles, we specialize in curating, buying, and selling high-quality collectibles. Whether you're looking for that missing piece to complete your collection or wanting to appraise and sell your items, we make the process seamless by coming directly to you.</p>
+            </section>
+
+            <section id="mobile-sales">
+                <h2>Mobile Collectible Sales & Appraisals</h2>
+                <p>Why pack up your fragile or bulky collections? We offer a convenient mobile service where we travel to your location to browse, buy, or sell collectibles.</p>
+                <ul>
+                    <li><strong>Step 1: Get in Touch.</strong> Contact us via phone or email with a brief description of the collection you want to sell or the items you are looking to buy.</li>
+                    <li><strong>Step 2: Schedule a Time.</strong> We will find a date and time that works best for your schedule.</li>
+                    <li><strong>Step 3: The Mobile Visit.</strong> We arrive at your location, provide fair market appraisals, and facilitate hassle-free transactions on the spot.</li>
+                </ul>
+                <a href="#contact" class="cta-button">Schedule a Visit</a>
+            </section>
+
+            <section id="events">
+                <h2>Book Us for Events</h2>
+                <p>Hosting a convention, trade show, local market, or private gathering? Rin's Collectibles can set up a premier vendor booth at your next event.</p>
+                <p>To secure us for your event, please provide:</p>
+                <ul>
+                    <li>The name, date, and location of the event.</li>
+                    <li>Expected attendance and target audience.</li>
+                    <li>Booth sizing and vendor requirements.</li>
+                </ul>
+                <p>Reach out to us at least 30 days in advance so we can prepare our best inventory suited for your specific crowd!</p>
+            </section>
+
+            <section id="contact">
+                <h2>Contact Us</h2>
+                <p>Ready to schedule a mobile sale or book us for an event? Reach out to us directly:</p>
+                <div class="contact-info">
+                    <div class="contact-method">
+                        <strong>📞 Call/Text:</strong> <a href="tel:+19512307991">(951) 230-7991</a>
+                    </div>
+                    <div class="contact-method">
+                        <strong>✉️ Email:</strong> <a href="mailto:rincollectibles@gmail.com">rincollectibles@gmail.com</a>
+                    </div>
+                </div>
+                <p style="margin-top: 1.5rem; font-size: 0.9rem; color: var(--text-dim);">*Business Hours: Monday - Sunday, 8:00 AM - 11:00 PM</p>
+            </section>
+
+        </div>
+
+        <footer>
+            <p>&copy; 2026 Rin's Collectibles. All Rights Reserved.</p>
+        </footer>
+    </div>
+
+</body>
+</html>
